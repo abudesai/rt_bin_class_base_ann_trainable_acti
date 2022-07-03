@@ -24,8 +24,8 @@
     "short_desc": "Learning rate for optimizer.",
     "default": 1e-3,
     "type": "real",
-    "range_low": 1e-6,
-    "range_high": 5e-1,
+    "range_low": 1e-5,
+    "range_high": 1e-1,
     "search_type": "log-uniform",
     "run_HPO": true
   },

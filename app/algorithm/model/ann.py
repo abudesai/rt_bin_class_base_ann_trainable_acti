@@ -108,6 +108,7 @@ class TrainableActivationLayer(Layer):
         y_multi_x_probs = y_multi * probs
         
         output_ = tf.math.reduce_sum(y_multi_x_probs, axis=-1, name="output")         # shape = (N, D)
+        output_ = tf.math.tanh(output_)
         return output_
 
 
@@ -157,7 +158,7 @@ class ANN():
             validation_data = None               
         
         # early_stop_callback = EarlyStopping(monitor=early_stop_loss, min_delta = 1e-3, patience=3)      
-        early_stop_callback = EarlyStoppingAtMinLoss(monitor=early_stop_loss, patience=5, min_epochs=100)    
+        early_stop_callback = EarlyStoppingAtMinLoss(monitor=early_stop_loss, patience=5, min_epochs=50)    
         infcost_stop_callback = InfCostStopCallback()
     
         history = self.model.fit(

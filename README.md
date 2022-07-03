@@ -1,1 +1,1 @@
-ANN with trainable activation layer implementation for binary classification using Tensorflow/Keras as per Ready Tensor specifications for 'Binary Classification-Base' category.
+ANN Classifier With Trainable Activation in TensorFlow/Keras for Binary Classification - Base problem category as per Ready Tensor specifications.

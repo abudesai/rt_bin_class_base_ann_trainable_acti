@@ -12,6 +12,7 @@ from imblearn.over_sampling import RandomOverSampler
 import algorithm.preprocessing.pipeline as pp_pipe
 import algorithm.preprocessing.preprocess_utils as pp_utils
 import algorithm.utils as utils
+# import algorithm.scoring as scoring
 from algorithm.model.ann import ANN as Model, get_data_based_model_params
 from algorithm.utils import get_model_config
 
@@ -26,28 +27,19 @@ def get_trained_model(data, data_schema, hyper_params):
     utils.set_seeds()
     
     # perform train/valid split 
-    if data.shape[1] > 500:        
-        train_data, valid_data = train_test_split(data, test_size=model_cfg['valid_split'])
-    else: 
-        train_data = data
-        valid_data = None
+    train_data, valid_data = train_test_split(data, test_size=model_cfg['valid_split'])
     # print('train_data shape:',  train_data.shape, 'valid_data shape:', valid_data.shape) 
     
     # preprocess data
     print("Pre-processing data...")
     train_data, valid_data, preprocess_pipe = preprocess_data(train_data, valid_data, data_schema)       
-    train_X, train_y = train_data['X'].astype(np.float), train_data['y'].astype(np.float)
-    
-    if valid_data is not None: 
-        valid_X, valid_y = valid_data['X'].astype(np.float), valid_data['y'].astype(np.float)       
-    else: 
-        valid_X, valid_y = None, None 
+    train_X, train_y = train_data['X'].astype(np.float), train_data['y'].astype(np.float)    
+    valid_X, valid_y = valid_data['X'].astype(np.float), valid_data['y'].astype(np.float) 
     
     # balance the targetclasses  
     over_sampler = RandomOverSampler(random_state=42)
     train_X, train_y = over_sampler.fit_resample(train_X, train_y)
-    if valid_data is not None: 
-        valid_X, valid_y = over_sampler.fit_resample(valid_X, valid_y)
+    valid_X, valid_y = over_sampler.fit_resample(valid_X, valid_y)
     
     # Create and train model     
     print('Fitting model ...')  
@@ -81,10 +73,8 @@ def preprocess_data(train_data, valid_data, data_schema):
         
     preprocess_pipe = pp_pipe.get_preprocess_pipeline(pp_params, model_cfg)
     train_data = preprocess_pipe.fit_transform(train_data)
-    # print("Processed train X/y data shape", train_data['X'].shape, train_data['y'].shape)
-      
-    if valid_data is not None: 
-        valid_data = preprocess_pipe.transform(valid_data)
+    # print("Processed train X/y data shape", train_data['X'].shape, train_data['y'].shape)      
+    valid_data = preprocess_pipe.transform(valid_data)        
     # print("Processed valid X/y data shape", valid_data['X'].shape, valid_data['y'].shape)
     return train_data, valid_data, preprocess_pipe 
 
