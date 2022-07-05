@@ -32,7 +32,7 @@
   {
     "name": "num_cps",
     "short_desc": "Number of changepoints for the trainable activation layer.",
-    "default": 3,
+    "default": 2,
     "type": "int",
     "range_low": 2,
     "range_high": 4,
