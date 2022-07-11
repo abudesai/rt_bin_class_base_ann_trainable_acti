@@ -20,7 +20,7 @@ from tensorflow.keras.losses import BinaryCrossentropy
 model_params_fname = "model_params.save"
 model_wts_fname = "model_wts.save"
 history_fname = "history.json"
-MODEL_NAME = "ANN"
+MODEL_NAME = "binary_class_ANN_T"
 
 COST_THRESHOLD = float('inf')
 
@@ -76,12 +76,13 @@ class EarlyStoppingAtMinLoss(Callback):
             if self.wait >= self.patience and epoch >= self.min_epochs:
                 self.stopped_epoch = epoch
                 self.model.stop_training = True
-                print("Restoring model weights from the end of the best epoch.")
+                # print("Restoring model weights from the end of the best epoch.")
                 self.model.set_weights(self.best_weights)
 
     def on_train_end(self, logs=None):
         if self.stopped_epoch > 0:
-            print("Epoch %05d: early stopping" % (self.stopped_epoch + 1))
+            # print("Epoch %05d: early stopping" % (self.stopped_epoch + 1))
+            pass
             
             
 class TrainableActivationLayer(Layer):
@@ -112,10 +113,8 @@ class TrainableActivationLayer(Layer):
         return output_
 
 
-class ANN(): 
-    
+class ANN():     
     def __init__(self, D, l1_reg=1e-3, l2_reg=1e-3, lr = 1e-2, num_cps=3, **kwargs) -> None:
-        super(ANN, self).__init__(**kwargs)
         self.D = D
         self.l1_reg = np.float(l1_reg)
         self.l2_reg = np.float(l2_reg)

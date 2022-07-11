@@ -3,7 +3,7 @@ import sys
 import time
 import pandas as pd, numpy as np
 import pprint 
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score 
 
 sys.path.insert(0, './../app')
 import algorithm.utils as utils 
@@ -42,7 +42,7 @@ from requirements.txt file, and then use that virtual env to do your testing.
 This isnt foolproof. You can still have host os and python version related issues, so beware. 
 '''
 
-model_name = "binary_class_ann_trainable_acti"
+model_name= ann.MODEL_NAME
 
 
 def create_ml_vol():    

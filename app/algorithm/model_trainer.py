@@ -62,7 +62,7 @@ def train_model(train_X, train_y, valid_X, valid_y, hyper_params):
         epochs = 1000,
         verbose = 0, 
     )  
-    print("last_loss:", history.history['loss'][-1])
+    # print("last_loss:", history.history['loss'][-1])
     return model, history
 
 
@@ -92,6 +92,7 @@ def get_resampled_data(X, y):
     
     resampled_X, resampled_y = [], []
     for i, count in enumerate(class_count):
+        if count == 0: continue
         # find total num_samples to use for this class
         size = max_obs_count if max_obs_count / count < max_resample else count * max_resample
         # if observed class is 50 samples, and we need 125 samples for this class, 
