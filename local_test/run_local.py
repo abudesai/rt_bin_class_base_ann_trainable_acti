@@ -11,7 +11,7 @@ import algorithm.model_trainer as model_trainer
 import algorithm.model_server as model_server
 import algorithm.model_tuner as model_tuner
 import algorithm.preprocessing.pipeline as pipeline
-import algorithm.model.ann as ann 
+import algorithm.model.classifier as classifier 
 
 
 inputs_path = "./ml_vol/inputs/"
@@ -42,7 +42,7 @@ from requirements.txt file, and then use that virtual env to do your testing.
 This isnt foolproof. You can still have host os and python version related issues, so beware. 
 '''
 
-model_name= ann.MODEL_NAME
+model_name= classifier.MODEL_NAME
 
 
 def create_ml_vol():    
@@ -114,9 +114,9 @@ def train_and_save_algo():
     # Save the processing pipeline   
     pipeline.save_preprocessor(preprocessor, model_artifacts_path)
     # Save the model 
-    ann.save_model(model, model_artifacts_path)
+    classifier.save_model(model, model_artifacts_path)
     # Save training history
-    ann.save_training_history(history, model_artifacts_path)    
+    classifier.save_training_history(history, model_artifacts_path)    
     print("done with training")
 
 

@@ -10,16 +10,16 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
 import algorithm.utils as utils
 import algorithm.model_trainer as model_trainer
 import algorithm.preprocessing.pipeline as pipeline
-import algorithm.model.ann as ann
+import algorithm.model.classifier as classifier
 
-# These are the paths to where SageMaker mounts interesting things in your container.
+# Paths for inputs, model, outputs for ml_vol mounted to the container.
 prefix = '/opt/ml_vol/'
 data_path = os.path.join(prefix, 'inputs', 'data')
 data_schema_path = os.path.join(prefix, 'inputs', 'data_config')
 model_path = os.path.join(prefix, 'model', 'artifacts')
 hyper_param_path = os.path.join(prefix, 'model', 'model_config')
-failure_path = os.path.join(prefix, 'outputs', 'errors', 'train_failure')
 output_path = os.path.join(prefix, 'outputs')
+failure_path = os.path.join(output_path, 'errors', 'train_failure')
 
 
 # This algorithm has a single channel of input data called 'training'. Since we run in
@@ -43,9 +43,9 @@ def train():
         # Save the processing pipeline   
         pipeline.save_preprocessor(preprocessor, model_path)
         # Save the model 
-        ann.save_model(model, model_path)
+        classifier.save_model(model, model_path)
         # Save the history 
-        ann.save_training_history(history, model_path)           
+        classifier.save_training_history(history, model_path)           
         print('Done training.')
     except Exception as e:
         print("error!")

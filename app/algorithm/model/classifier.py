@@ -20,6 +20,7 @@ from tensorflow.keras.losses import BinaryCrossentropy
 model_params_fname = "model_params.save"
 model_wts_fname = "model_wts.save"
 history_fname = "history.json"
+
 MODEL_NAME = "binary_class_ANN_T"
 
 COST_THRESHOLD = float('inf')
@@ -113,7 +114,7 @@ class TrainableActivationLayer(Layer):
         return output_
 
 
-class ANN():     
+class Classifier():     
     def __init__(self, D, l1_reg=1e-3, l2_reg=1e-3, lr = 1e-2, num_cps=3, **kwargs) -> None:
         self.D = D
         self.l1_reg = np.float(l1_reg)
@@ -214,7 +215,7 @@ def save_model(model, model_path):
 
 def load_model(model_path): 
     try: 
-        model = ANN.load(model_path)        
+        model = Classifier.load(model_path)        
     except: 
         raise Exception(f'''Error loading the trained {MODEL_NAME} model. 
             Do you have the right trained model in path: {model_path}?''')

@@ -13,7 +13,7 @@ import algorithm.preprocessing.pipeline as pp_pipe
 import algorithm.preprocessing.preprocess_utils as pp_utils
 import algorithm.utils as utils
 # import algorithm.scoring as scoring
-from algorithm.model.ann import ANN as Model, get_data_based_model_params
+from algorithm.model.classifier import Classifier as Classifier, get_data_based_model_params
 from algorithm.utils import get_model_config
 
 
@@ -24,7 +24,7 @@ model_cfg = get_model_config()
 def get_trained_model(data, data_schema, hyper_params):  
     
     # set random seeds
-    utils.set_seeds()
+    utils.set_seeds() 
     
     # perform train/valid split 
     train_data, valid_data = train_test_split(data, test_size=model_cfg['valid_split'])
@@ -48,12 +48,12 @@ def get_trained_model(data, data_schema, hyper_params):
 
 
 def train_model(train_X, train_y, valid_X, valid_y, hyper_params):    
-    # get model hyper-paameters parameters 
+    # get model hyper-parameters 
     data_based_params = get_data_based_model_params(train_X)
     model_params = { **data_based_params, **hyper_params }
     
     # Create and train model   
-    model = Model(  **model_params )  
+    model = Classifier(  **model_params )  
     # model.summary()  
     history = model.fit(
         train_X=train_X, train_y=train_y, 
