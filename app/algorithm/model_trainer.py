@@ -33,8 +33,8 @@ def get_trained_model(data, data_schema, hyper_params):
     # preprocess data
     print("Pre-processing data...")
     train_data, valid_data, preprocess_pipe = preprocess_data(train_data, valid_data, data_schema)       
-    train_X, train_y = train_data['X'].astype(np.float), train_data['y'].astype(np.float)    
-    valid_X, valid_y = valid_data['X'].astype(np.float), valid_data['y'].astype(np.float) 
+    train_X, train_y = train_data['X'].values.astype(np.float), train_data['y'].values.astype(np.float)    
+    valid_X, valid_y = valid_data['X'].values.astype(np.float), valid_data['y'].values.astype(np.float) 
     
     # balance the targetclasses  
     train_X, train_y = get_resampled_data(train_X, train_y)
